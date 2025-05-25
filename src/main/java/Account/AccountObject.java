@@ -1,7 +1,11 @@
+package Account;
+
 public class AccountObject {
     private String id;
     private String owner;
     private float balance;
+
+    public AccountObject() {};
 
     public AccountObject(String id, String owner, float balance) {
         this.id = id;
