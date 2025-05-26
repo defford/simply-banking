@@ -12,6 +12,10 @@ public class AccountRepository {
         accounts.add(account);
     }
 
+    public static int nextId() {
+        return accounts.size() + 1;
+    }
+
     public static AccountObject findAccountById(String id) {
         return accounts.stream()
                 .filter(account -> account.getId().equals(id))
@@ -19,4 +23,10 @@ public class AccountRepository {
                 .orElseThrow(() -> new NoSuchElementException(id));
     }
 
+    public static void getAccounts() {
+        for (AccountObject account : accounts) {
+            System.out.println(account);
+        }
+
+    }
 }

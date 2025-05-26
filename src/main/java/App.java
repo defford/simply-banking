@@ -24,6 +24,7 @@ public class App {
                 AccountObject account = new AccountObject(owner);
                 AccountService.createAccount(account);
                 System.out.println("Account created successfully!");
+                AccountService.displayAccounts();
                 break;
             case 2:
                 System.out.println("Enter account ID: ");
