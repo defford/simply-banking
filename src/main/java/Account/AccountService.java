@@ -1,11 +1,15 @@
 package Account;
 
 public class AccountService {
-    public void createAccount(AccountObject account, float balance) {
+    public static void createAccount(AccountObject account) {
         AccountRepository.addAccount(account);
     }
 
-    public void withdraw(AccountObject account, float balance, float amount) {
+    public static AccountObject getAccountById(String id) {
+        return AccountRepository.findAccountById(id);
+    }
+
+    public static void withdraw(AccountObject account, float balance, float amount) {
         if (balance < amount) {
             throw new IllegalArgumentException("Insufficient funds");
         } else {
@@ -13,8 +17,9 @@ public class AccountService {
         }
     }
 
-    public void deposit(AccountObject account, float amount) {
+    public static void deposit(AccountObject account, float amount) {
         account.setBalance(account.getBalance() + amount);
     }
+
 }
 

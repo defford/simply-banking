@@ -5,7 +5,9 @@ public class AccountObject {
     private String owner;
     private float balance;
 
-    public AccountObject() {};
+    public AccountObject(String owner) {
+        this.owner = owner;
+    };
 
     public AccountObject(String id, String owner, float balance) {
         this.id = id;

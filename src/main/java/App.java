@@ -1,7 +1,7 @@
 import Account.AccountObject;
-import Account.AccountRepository;
 import Account.AccountService;
-import Scanner;
+import Account.AccountService;
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
@@ -11,29 +11,30 @@ public class App {
         System.out.println("2. Access an account");
         System.out.println("3. Exit");
 
-        Scanner scanner = new Scanner();
-        System.in.println("Enter your choice: ");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter your choice: ");
         int choice = scanner.nextInt();
+        scanner.nextLine();
 
         switch (choice) {
             case 1:
                 System.out.println("Enter name for the account: ");
                 String owner = scanner.nextLine();
 
-                AccountObject account = new AccountObject();
-                AccountRepository.addAccount(account);
+                AccountObject account = new AccountObject(owner);
+                AccountService.createAccount(account);
                 System.out.println("Account created successfully!");
                 break;
             case 2:
                 System.out.println("Enter account ID: ");
-                id = scanner.nextLine();
-                account = AccountRepository.getAccount(id);
+                String id = scanner.nextLine();
+                account = AccountService.getAccountById(id);
                 System.out.println(account);
                 break;
             case 3:
                 System.out.println("Enter account ID: ");
                 id = scanner.nextLine();
-                account = accountRepository.getAccount(id);
+                account = AccountService.getAccountById(id);
                 System.out.println("Enter amount to deposit: ");
                 float amount = scanner.nextFloat();
                 AccountService.deposit(account, amount);
@@ -41,8 +42,8 @@ public class App {
                 break;
             case 4:
                 System.out.println("Enter account ID: ");
-                String id = scanner.nextLine();
-                account = accountRepository.getAccount(id);
+                id = scanner.nextLine();
+                account = AccountService.getAccountById(id);
                 System.out.println("Enter amount to withdraw: ");
                 amount = scanner.nextFloat();
                 if (account.getBalance() >= amount) {

@@ -1,21 +1,22 @@
 package Account;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class AccountRepository {
-    private final HashMap<String, AccountObject> accounts = new HashMap<>();
+    private static final ArrayList<AccountObject> accounts = new ArrayList<>();
+
+    public AccountRepository() {};
 
     public static void addAccount(AccountObject account) {
-        accounts.put(account.getId(), account);
+        accounts.add(account);
     }
 
-    public static AccountObject getAccount(String id) {
-        AccountObject account = accounts.get(id);
-        if (account == null) {
-            throw new NoSuchElementException(id);
-        }
-        return account;
+    public static AccountObject findAccountById(String id) {
+        return accounts.stream()
+                .filter(account -> account.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException(id));
     }
 
 }
