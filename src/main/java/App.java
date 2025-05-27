@@ -54,44 +54,60 @@ public class App {
                     break;
                 case 2:
                     boolean successfulLogin = false;
+                    AccountObject loggedInAccount = null;
+
                     while (!successfulLogin) {
                         System.out.println("Enter account name: ");
                         name = scanner.nextLine();
-                        account = AccountService.getAccountByName(name);
+                        loggedInAccount = AccountService.getAccountByName(name);
                         System.out.println("Enter your pin: ");
                         pin = scanner.nextInt();
-                        if (account.getName().equals(name) && account.getPin() == pin) {
+                        if (loggedInAccount.getName().equals(name) && loggedInAccount.getPin() == pin) {
                             System.out.println("Welcome " + name + "!");
                             successfulLogin = true;
                         } else {
                             System.out.println("Invalid name or pin!");
                         }
                     }
-                    break;
-                case 3:
-                    System.out.println("Enter account name: ");
-                    name = scanner.nextLine();
-                    account = AccountService.getAccountByName(name);
-                    System.out.println("Enter amount to deposit: ");
-                    float amount = scanner.nextFloat();
-                    AccountService.deposit(account, amount);
-                    System.out.println("Deposit successful!");
-                    break;
-                case 4:
-                    System.out.println("Enter account name: ");
-                    name = scanner.nextLine();
-                    account = AccountService.getAccountByName(name);
-                    System.out.println("Enter amount to withdraw: ");
-                    amount = scanner.nextFloat();
-                    if (account.getBalance() >= amount) {
-                        account.setBalance(account.getBalance() - amount);
-                        System.out.println("Withdrawal successful!");
-                    } else {
-                        System.out.println("Insufficient funds!");
+
+                    boolean accountMenu = true;
+                    while (accountMenu) {
+                        System.out.println("What would you like to do?");
+                        System.out.println("1. View my balance");
+                        System.out.println("2. Deposit");
+                        System.out.println("3. Withdraw");
+                        System.out.println("4. Return to main menu");
+                        System.out.println("Enter your choice: ");
+                        int choice2 = scanner.nextInt();
+                        scanner.nextLine();
+                        switch (choice2) {
+                            case 1: System.out.println("Your balance is: $" + loggedInAccount.getBalance());
+                                break;
+                            case 2: System.out.println("Enter amount to deposit: ");
+                                float amount = scanner.nextFloat();
+                                AccountService.deposit(loggedInAccount, amount);
+                                System.out.println("Deposit successful!");
+                                break;
+                            case 3: System.out.println("Enter amount to withdraw: ");
+                                amount = scanner.nextFloat();
+                                if (loggedInAccount.getBalance() >= amount) {
+                                    loggedInAccount.setBalance(loggedInAccount.getBalance() - amount);
+                                    System.out.println("Withdrawal successful!");
+                                } else {
+                                    System.out.println("Insufficient funds!");
+                                }
+                                break;
+                            case 4: System.out.println("Returning to main menu...");
+                                accountMenu = false;
+                                break;
+                            default: System.out.println("Invalid choice!");
+                                break;
+                        }
                     }
                     break;
-                case 5:
+                case 3:
                     System.out.println("Goodbye!");
+                    mainMenu = false;
                     break;
                 default:
                     System.out.println("Invalid choice!");
