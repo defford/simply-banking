@@ -2,16 +2,13 @@ package Account;
 
 public class AccountObject {
     private String id;
-    private String owner;
+    private String name;
+    private int pin;
     private float balance;
 
-    public AccountObject(String owner) {
-        this.owner = owner;
-    };
-
-    public AccountObject(String id, String owner, float balance) {
-        this.id = id;
-        this.owner = owner;
+    public AccountObject(String name, int pin, float balance) {
+        this.name = name;
+        this.pin = pin;
         this.balance = balance;
     }
 
@@ -19,8 +16,12 @@ public class AccountObject {
         return id;
     }
 
-    public String getOwner() {
-        return owner;
+    public String getName() {
+        return name;
+    }
+
+    public int getPin() {
+        return pin;
     }
 
     public float getBalance() {
@@ -31,8 +32,12 @@ public class AccountObject {
         this.id = id;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPin(int pin) {
+        this.pin = pin;
     }
 
     public void setBalance(float balance) {
@@ -42,7 +47,7 @@ public class AccountObject {
     public String toString() {
         return "Account{" +
                 "id='" + id + '\'' +
-                ", owner='" + owner + '\'' +
+                ", name='" + name + '\'' +
                 ", balance=" + balance +
                 '}';
     }

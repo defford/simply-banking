@@ -8,19 +8,19 @@ public class AccountRepository {
 
     public AccountRepository() {};
 
-    public static void addAccount(AccountObject account) {
-        accounts.add(account);
-    }
-
     public static int nextId() {
         return accounts.size() + 1;
     }
 
-    public static AccountObject findAccountById(String id) {
+    public static void addAccount(AccountObject account) {
+        accounts.add(account);
+    }
+
+    public static AccountObject findAccountByName(String name) {
         return accounts.stream()
-                .filter(account -> account.getId().equals(id))
+                .filter(account -> account.getName().equals(name))
                 .findFirst()
-                .orElseThrow(() -> new NoSuchElementException(id));
+                .orElseThrow(() -> new NoSuchElementException(name));
     }
 
     public static void getAccounts() {

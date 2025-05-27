@@ -7,8 +7,12 @@ public class AccountService {
         AccountRepository.addAccount(account);
     }
 
-    public static AccountObject getAccountById(String id) {
-        return AccountRepository.findAccountById(id);
+    public static AccountObject getAccountByName(String name) {
+        return AccountRepository.findAccountByName(name);
+    }
+
+    public static void displayAccounts() {
+        AccountRepository.getAccounts();
     }
 
     public static void withdraw(AccountObject account, float balance, float amount) {
@@ -23,9 +27,6 @@ public class AccountService {
         account.setBalance(account.getBalance() + amount);
     }
 
-    public static void displayAccounts() {
-        AccountRepository.getAccounts();
-    }
 
 }
 
