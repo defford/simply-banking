@@ -1,5 +1,7 @@
 import Account.AccountObject;
 import Account.AccountService;
+import Exceptions.AccountNotFoundException;
+import Exceptions.InsufficientBalanceException;
 import java.util.Scanner;
 
 public class App {
@@ -59,14 +61,19 @@ public class App {
                     while (!successfulLogin) {
                         System.out.println("Enter account name: ");
                         name = scanner.nextLine();
-                        loggedInAccount = AccountService.getAccountByName(name);
-                        System.out.println("Enter your pin: ");
-                        pin = scanner.nextInt();
-                        if (loggedInAccount.getName().equals(name) && loggedInAccount.getPin() == pin) {
-                            System.out.println("Welcome " + name + "!");
-                            successfulLogin = true;
-                        } else {
-                            System.out.println("Invalid name or pin!");
+                        try {
+                            loggedInAccount = AccountService.getAccountByName(name);
+                            System.out.println("Enter your pin: ");
+                            pin = scanner.nextInt();
+                            scanner.nextLine();
+                            if (loggedInAccount.getPin() == pin) {
+                                System.out.println("Welcome " + loggedInAccount.getName() + "!");
+                                successfulLogin = true;
+                            } else {
+                                System.out.println("Invalid pin!");
+                            }
+                        } catch (AccountNotFoundException e) {
+                            System.out.println(e.getMessage());
                         }
                     }
 
@@ -90,11 +97,11 @@ public class App {
                                 break;
                             case 3: System.out.println("Enter amount to withdraw: ");
                                 amount = scanner.nextFloat();
-                                if (loggedInAccount.getBalance() >= amount) {
-                                    loggedInAccount.setBalance(loggedInAccount.getBalance() - amount);
+                                try {
+                                    AccountService.withdraw(loggedInAccount, loggedInAccount.getBalance(), amount);
                                     System.out.println("Withdrawal successful!");
-                                } else {
-                                    System.out.println("Insufficient funds!");
+                                } catch (InsufficientBalanceException e) {
+                                    System.out.println(e.getMessage());
                                 }
                                 break;
                             case 4: System.out.println("Returning to main menu...");
