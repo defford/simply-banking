@@ -1,7 +1,7 @@
 package Account;
 
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
+import Exceptions.AccountNotFoundException;
 
 public class AccountRepository {
     private static final ArrayList<AccountObject> accounts = new ArrayList<>();
@@ -16,11 +16,11 @@ public class AccountRepository {
         accounts.add(account);
     }
 
-    public static AccountObject findAccountByName(String name) {
+    public static AccountObject findAccountByName(String name) throws AccountNotFoundException {
         return accounts.stream()
                 .filter(account -> account.getName().equals(name))
                 .findFirst()
-                .orElseThrow(() -> new NoSuchElementException(name));
+                .orElseThrow(() -> new AccountNotFoundException("Could not find account with name: " + name));
     }
 
     public static void getAccounts() {

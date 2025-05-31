@@ -1,5 +1,8 @@
 package Account;
 
+import Exceptions.AccountNotFoundException;
+import Exceptions.InsufficientBalanceException;
+
 public class AccountService {
     public static void createAccount(AccountObject account) {
         int Id = AccountRepository.nextId();
@@ -7,7 +10,7 @@ public class AccountService {
         AccountRepository.addAccount(account);
     }
 
-    public static AccountObject getAccountByName(String name) {
+    public static AccountObject getAccountByName(String name) throws AccountNotFoundException {
         return AccountRepository.findAccountByName(name);
     }
 
@@ -15,9 +18,9 @@ public class AccountService {
         AccountRepository.getAccounts();
     }
 
-    public static void withdraw(AccountObject account, float balance, float amount) {
+    public static void withdraw(AccountObject account, float balance, float amount) throws InsufficientBalanceException {
         if (balance < amount) {
-            throw new IllegalArgumentException("Insufficient funds");
+            throw new InsufficientBalanceException("Insufficient funds");
         } else {
         account.setBalance(account.getBalance() - amount);
         }
