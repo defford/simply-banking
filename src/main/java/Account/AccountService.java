@@ -14,10 +14,6 @@ public class AccountService {
         return AccountRepository.findAccountByName(name);
     }
 
-    public static void displayAccounts() {
-        AccountRepository.getAccounts();
-    }
-
     public static void withdraw(AccountObject account, float balance, float amount) throws InsufficientBalanceException {
         if (balance < amount) {
             throw new InsufficientBalanceException("Insufficient funds");

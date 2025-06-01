@@ -1,6 +1,7 @@
 package Account;
 
 import java.util.ArrayList;
+import java.util.List;
 import Exceptions.AccountNotFoundException;
 
 public class AccountRepository {
@@ -23,10 +24,7 @@ public class AccountRepository {
                 .orElseThrow(() -> new AccountNotFoundException("Could not find account with name: " + name));
     }
 
-    public static void getAccounts() {
-        for (AccountObject account : accounts) {
-            System.out.println(account);
-        }
-
+    public static List<AccountObject> getAccounts() {
+        return new ArrayList<>(accounts);
     }
 }
